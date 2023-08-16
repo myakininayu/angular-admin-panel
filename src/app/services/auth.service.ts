@@ -14,7 +14,7 @@ export class AuthService {
   }
 
   getToken() {
-    localStorage.getItem('token')
+    return localStorage.getItem('token')
   }
 
   isLoggedIn() {
@@ -28,5 +28,9 @@ export class AuthService {
     }
 
     return throwError(() => new Error('Failed to login'))
+  }
+
+  logout() {
+    this.router.navigate(['login']);
   }
 }
