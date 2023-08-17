@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { User } from '../../user';
 import { AdminService } from '../../services/admin.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-contacts',
@@ -11,9 +12,9 @@ import { AdminService } from '../../services/admin.service';
 export class ContactsComponent {
   personalList!: Observable<User[]>;
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.personalList = this.adminService.getPersonalList()
+    this.personalList = this.activatedRoute.data.pipe(map((data) => data?.['users']));
   }
 }
